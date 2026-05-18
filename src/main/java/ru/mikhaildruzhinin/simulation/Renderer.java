@@ -13,12 +13,11 @@ import java.io.IOException;
 
 public class Renderer {
 
-    private final DefaultTerminalFactory defaultTerminalFactory = new DefaultTerminalFactory();
-
-    private Terminal terminal = null;
+    private final Terminal terminal;
 
     public Renderer() {
         try {
+            DefaultTerminalFactory defaultTerminalFactory = new DefaultTerminalFactory();
             this.terminal = defaultTerminalFactory.createTerminal();
         } catch (IOException e) {
             throw new RuntimeException(e);
