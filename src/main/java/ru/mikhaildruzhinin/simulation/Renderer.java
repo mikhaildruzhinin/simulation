@@ -5,6 +5,9 @@ import com.googlecode.lanterna.terminal.Terminal;
 import ru.mikhaildruzhinin.simulation.entity.Entity;
 import ru.mikhaildruzhinin.simulation.entity.creature.Herbivore;
 import ru.mikhaildruzhinin.simulation.entity.creature.Predator;
+import ru.mikhaildruzhinin.simulation.entity.terrain.Grass;
+import ru.mikhaildruzhinin.simulation.entity.terrain.Rock;
+import ru.mikhaildruzhinin.simulation.entity.terrain.Tree;
 
 import java.io.IOException;
 
@@ -32,6 +35,9 @@ public class Renderer {
                     String element = switch (worldMap.getWorld()[n]) {
                         case Herbivore ignored -> "H";
                         case Predator ignored -> "P";
+                        case Grass ignored -> "g";
+                        case Rock ignored -> "r";
+                        case Tree ignored -> "t";
                         case Entity ignored -> "E";
                         case null -> ".";
                     };
