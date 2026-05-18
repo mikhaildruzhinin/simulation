@@ -1,0 +1,59 @@
+package ru.mikhaildruzhinin.simulation;
+
+import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
+import com.googlecode.lanterna.terminal.Terminal;
+import ru.mikhaildruzhinin.simulation.entity.Entity;
+import ru.mikhaildruzhinin.simulation.entity.creature.Herbivore;
+import ru.mikhaildruzhinin.simulation.entity.creature.Predator;
+
+import java.io.IOException;
+
+public class Renderer {
+
+    private final DefaultTerminalFactory defaultTerminalFactory = new DefaultTerminalFactory();
+
+    private Terminal terminal = null;
+
+    public Renderer() {
+        try {
+            this.terminal = defaultTerminalFactory.createTerminal();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void render(WorldMap worldMap) {
+
+        try {
+            for (int x = 0; x < worldMap.getLength(); x++) {
+                for (int y = 0; y < worldMap.getWidth(); y++) {
+                    int n = y * worldMap.getWidth() + x;
+
+                    String element = switch (worldMap.getWorld()[n]) {
+                        case Herbivore ignored -> "H";
+                        case Predator ignored -> "P";
+                        case Entity ignored -> "E";
+                        case null -> ".";
+                    };
+
+                    terminal.setCursorPosition(x, y);
+                    terminal.putString(element);
+
+                }
+            }
+            terminal.flush();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void close() {
+        if (terminal != null) {
+            try {
+                terminal.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+}
