@@ -19,14 +19,18 @@ public class Simulation {
         this.renderer = renderer;
     }
 
-    public void simulate() {
+    public void nextTurn() {
+        turnCounter++;
+        System.out.println("Turn: " + turnCounter);
+        renderer.render(worldMap);
+    }
+
+    public void startSimulation() {
         worldMap.getWorld()[0] = new Herbivore();
 
         try {
             while (true) {
-                turnCounter++;
-                System.out.println("Turn: " + turnCounter);
-                renderer.render(worldMap);
+                nextTurn();
                 Thread.sleep(2000);
             }
         } catch (InterruptedException e) {
@@ -34,5 +38,9 @@ public class Simulation {
         } finally {
             renderer.close();
         }
+    }
+
+    public void pauseSimulation() {
+        throw new UnsupportedOperationException();
     }
 }
